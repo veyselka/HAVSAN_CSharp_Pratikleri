@@ -12,8 +12,8 @@ namespace Matematik
 
         private int privateveri { get; set; }  //sadece tanınmlandığı sınıf içinde kullanılabilir
 
-        internal int internalveri { get; set; } 
-
+        internal int internalveri { get; set; }  
+        // git
         protected int protectedveri { get; set; }   //sadece sınıftan kalıtım alındığında kullanılabilen access modify
 
         void topla()
