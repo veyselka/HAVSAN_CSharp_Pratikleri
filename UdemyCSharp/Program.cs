@@ -259,6 +259,45 @@ namespace UdemyCSharp
 
 
 
+            ///Partial class için örenekler 
+            ///
+
+            product product = new product();
+
+            product.id = 1;    /// hem diğer classdan alabiliyorum
+
+            string yaz=product.method2();    // hemed diğer partial classdan nesne örenği yaratabilirim
+
+            Console.WriteLine(yaz);
+
+
+
+
+            ///parial class lar farklı interfaceleri iplemante edebilir.
+            ///interfaceler  de partial olabiliri yani interfacelerde de PARTİAL keyword ü kullanılabiilir
+            ///
+
+            ///partial metod da oluşturlabilir 
+            ///ama oluşturulan partial metodlardan biri sadece METDUN İMZASI DIR
+            ///DİĞER METOD İSE SADECE GÖVDESİDİR
+            ///PARTİAL METODLAR OVERRİDE EDİLEMEZ 
+            ///SADECE AYNI CLASSLAR İÇİNDE KULLANILABİLİRLER
+            ///
+
+
+
+
+
+            Console.WriteLine("---------------------------------------------------");
+            Console.WriteLine("---------------------------------------------------");
+
+            
+
+            /// delegate ler metodlara referance sağlarlar
+            /// dönüş tipi ise hangi metoda referance vercekse o metodun geri dönüş tipi yazılır 
+            /// SİNGLECAST DDELEGATE
+            /// MULTİCASTE DELEGATE
+
 
 
 
@@ -495,7 +534,7 @@ namespace UdemyCSharp
             Console.WriteLine(this.isim + " " + this.soyİsim);
         }
     }
-    public class İsci : baseKisi
+    public class İsci : baseKisi 
     {
         public override void calis()  //override method
         {
@@ -631,6 +670,7 @@ namespace UdemyCSharp
     /// 4-) static constructor   ilk nesne örneği alındığı zaman çalışır başka da çalışmaz  her zaman ilk olarak ststic constructorlar çalışırlar
     /// 5-) private constructor  dışarıdan bir nesne örneği alınmasını istemiyorsak private erişim belirleyicisiyle sınırlandırılır
     /// 
+
 
 
 
