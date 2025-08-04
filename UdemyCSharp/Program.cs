@@ -14,7 +14,8 @@ namespace UdemyCSharp
 {
     public class Program
     {
-        static void Main(string[] args)
+
+        public static void Main(string[] args)
         {
             List<String> liste = new List<String> { "veysel", "ömer ", "atıf", "erhan" };
             foreach (String s in liste)
@@ -172,7 +173,7 @@ namespace UdemyCSharp
 
 
 
-            deneme.nestedtpe d =new deneme.nestedtpe();   //nested type iç içe class tanımlama nın new lenmesi
+            deneme.nestedtpe d = new deneme.nestedtpe();   //nested type iç içe class tanımlama nın new lenmesi
 
 
 
@@ -189,7 +190,7 @@ namespace UdemyCSharp
 
 
             /// inetrfacelerde explicit (açık) dönüşüm
-            
+
             IUcgen ucgen = new Sekil();
 
             ucgen.ciz();
@@ -215,25 +216,25 @@ namespace UdemyCSharp
 
 
 
-            
 
 
 
-            İsci isci =new İsci("veysel","kılıçerkan");  // constructor çalıştırma
+
+            İsci isci = new İsci("veysel", "kılıçerkan");  // constructor çalıştırma
 
             isci.yaz();   // ismi yazdırma 
 
-            
+
 
             isci.calis(); // işçi çalıştı yazdırma
 
-            Editor editor = new Editor("atıf","kan");  // constructor çalıştırma
+            Editor editor = new Editor("atıf", "kan");  // constructor çalıştırma
 
             editor.yaz();  // ismi yazdırma 
 
             editor.calis();  // editör çalıştı yazdırma
 
-            Yonetici yonetici = new Yonetici("erhan","turan");  // constructor çalıştırma
+            Yonetici yonetici = new Yonetici("erhan", "turan");  // constructor çalıştırma
 
             yonetici.yaz();   // ismi yazdırma 
 
@@ -249,8 +250,8 @@ namespace UdemyCSharp
 
 
 
-            mainClass con =new mainClass();  // constructor tanımladığım bir class ı çağırdığımda otomatik olarak ilk 
-                                             // constructoru çalışır 
+            mainClass con = new mainClass();  // constructor tanımladığım bir class ı çağırdığımda otomatik olarak ilk 
+                                              // constructoru çalışır 
 
 
 
@@ -266,7 +267,7 @@ namespace UdemyCSharp
 
             product.id = 1;    /// hem diğer classdan alabiliyorum
 
-            string yaz=product.method2();    // hemed diğer partial classdan nesne örenği yaratabilirim
+            string yaz = product.method2();    // hemed diğer partial classdan nesne örenği yaratabilirim
 
             Console.WriteLine(yaz);
 
@@ -291,7 +292,7 @@ namespace UdemyCSharp
             Console.WriteLine("---------------------------------------------------");
             Console.WriteLine("---------------------------------------------------");
 
-            
+
 
             /// delegate ler metodlara referance sağlarlar
             /// dönüş tipi ise hangi metoda referance vercekse o metodun geri dönüş tipi yazılır 
@@ -299,13 +300,141 @@ namespace UdemyCSharp
             /// MULTİCASTE DELEGATE
 
 
+            // FullnameDelegate fullnameDelegate = new FullnameDelegate(fullanmeMethod1);
+
+
+            // public static void fullanmeMethod1(string isim, string soyisim);
+
+
+
+            isci1 isci1 = new isci1 { isim = "veysel", soyisim = "kılıçerkan", maas = 1000, tecrube = 1 };
+            isci1 isci2 = new isci1 { isim = "ömer", soyisim = "narçiçeği", maas = 2000, tecrube = 2 };
+            isci1 isci3 = new isci1 { isim = "erhan", soyisim = "turan", maas = 3000, tecrube = 3 };
+            isci1 isci4 = new isci1 { isim = "atıf", soyisim = "kan", maas = 4000, tecrube = 4 };
+            isci1 isci5 = new isci1 { isim = "zehra", soyisim = "çelikel", maas = 5000, tecrube = 5 };
+
+            List<isci1> isciler = new List<isci1>();
+            isciler.Add(isci1);
+            isciler.Add(isci2);
+            isciler.Add(isci3);
+            isciler.Add(isci4);
+            isciler.Add(isci5);
+
+
+            isci1.maasİlePromosyon(isciler, 4000);
+            isci1.tecrubeİlePromosyon(isciler, 3);
+
+
+
+
+
+            Console.WriteLine("---------------------------------------------------");
+            Console.WriteLine("---------------------------------------------------");
+
+            /// delegate ile çözüm
+
+
+
+
 
 
         }
+
     }
+        
+
+
+    //deleaget ile çözüm
+
+
+    
+        
+
+    public delegate bool promosyonDelegate(isci1 isciler);
+
+    //public static bool maas_promosyon (isci1 i)
+    //{
+    //    if (i.maas > 3000)
+    //    {
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
+    //}
 
 
 
+
+    /// <summary>
+    /// delegateler classalr dışında imzalı method olarak tanımlanırlar
+    /// </summary>
+    /// 
+    public delegate void FullnameDelegate(string isim , string soyisim);
+
+    /// <summary>
+    /// Delegate tanımlanması bu şekilde
+    /// </summary>
+
+
+    /// Delegate örnek için class alısştırması 
+    /// 
+    public class isci1
+    {
+        public string isim;
+        public string soyisim;
+        public int tecrube;
+        public int maas;
+
+
+
+
+        ///DELEGATE İLE ÇÖZÜM
+        ///
+
+        public static void promosyon(List<isci1> isci1 , promosyonDelegate promosyonDelegate)
+        {
+            foreach (var item in isci1)
+            {
+                if (promosyonDelegate(item))
+                {
+                    Console.WriteLine(item.isim + " " + item.soyisim);
+                }
+            }
+        }
+
+
+
+
+
+        /// <summary>
+        /// NIORMAL ÇÖZÜM
+        /// </summary>
+        
+
+        public static void maasİlePromosyon(List<isci1> iscis,int maas)
+        {
+            foreach(var item in iscis)
+            {
+                if (item.maas > maas)
+                {
+                    Console.WriteLine(item.isim+" "+item.soyisim);
+                }
+            }
+        }
+        public static void tecrubeİlePromosyon(List<isci1> iscis ,int tecrube)
+        {
+            foreach (var item in iscis)
+            {
+                if (item.tecrube > tecrube)
+                {
+                    Console.WriteLine(item.isim + " " + item.soyisim);
+                }
+            }
+
+        }
+    }
 
 
     class ornek
