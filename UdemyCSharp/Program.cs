@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -17,6 +18,8 @@ namespace UdemyCSharp
 
         public static void Main(string[] args)
         {
+
+
             List<String> liste = new List<String> { "veysel", "ömer ", "atıf", "erhan" };
             foreach (String s in liste)
             {
@@ -331,9 +334,58 @@ namespace UdemyCSharp
             Console.WriteLine("---------------------------------------------------");
             Console.WriteLine("---------------------------------------------------");
 
-            /// delegate ile çözüm
+            
+            /// event örnekleri
+            /// 
+            car a = new car();
+            a.Model = "Ford";
+
+            a.speedEvent += A_speedEvent;
 
 
+            for (int i = 50; i < 100; i += 5)
+            {
+                System.Threading.Thread.Sleep(1000);  /// döngüde her 1000 ms de bir duracak
+                a.Speed = i;
+                Console.WriteLine("Araç Hızlanıyor = " + i);
+            }
+
+            ///out keywordu bir metodda birden fazla değer dönebilir
+            ///ref keywordu ise value type leri referance type olmasını sağlar 
+            ///yani bir int tanımlandığında bir class gibi davranır ve 
+            ///bir kopyasını oluşturmadan direk gönderiri
+            ///
+
+
+
+
+
+        }
+
+        private static void A_speedEvent(int speedValue)
+        {
+            Console.WriteLine("Araba Hızını Aştı  :::::  anlık hzı durmu =" +speedValue);
+        }
+
+        public delegate void speedDelegate(int speedValue);
+
+        public class car
+        {
+            public event speedDelegate speedEvent;
+            private int _speed;
+
+            public string Model { get; set;}
+            public int Speed { get => _speed;
+                set {
+                    if(value > 80 && speedEvent != null)
+                    {
+                        speedEvent(value);
+                    }
+                    else
+                    {
+                        _speed = value;
+                    }
+                } }
 
 
 
